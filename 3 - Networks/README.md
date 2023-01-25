@@ -27,7 +27,10 @@ Desta forma, os 2 containers podem se comunicar com a base de dados se necessái
 ---
 
 ## Comandos
-
+- Cria uma network com seu driver/tipo especificado (dentre os mencionados acima) com o nome **my-network**:
+    ```shell
+    $ docker network create --driver bridge my-network
+    ```
 - Lista todas as network criadas:
     ```shell
     $ docker network ls
