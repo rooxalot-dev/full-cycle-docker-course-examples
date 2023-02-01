@@ -89,3 +89,7 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Project specific
+6 - Docker Compose/db/files/*
+!6 - Docker Compose/db/files/.gitkeep

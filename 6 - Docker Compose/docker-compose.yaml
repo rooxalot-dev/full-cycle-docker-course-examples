@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  node:
+    image: node:16
+    container_name: node-app
+    volumes:
+      - ./node:/usr/app/src
+    entrypoint: ["node", "/usr/app/src/index.js"]
+    depends_on:
+      - db
+    networks:
+      - node-net
+    environment:
+      - PORT=3000
+      - APP_DATABASE_HOST=db
+      - APP_DATABASE=node-app
+      - APP_USER=root
+      - APP_PASSWORD=root
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+  
+  db:
+    image: mysql:8
+    container_name: db-app
+    command: --innodb-use-native-aio=0
+    volumes:
+      - ./db/files:/var/lib/mysql
+      - ./db/scripts/create-table.sql:/docker-entrypoint-initdb.d/1.sql
+    networks:
+      - node-net
+    environment:
+      - MYSQL_DATABASE=node-app
+      - MYSQL_ROOT_PASSWORD=root
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+
+networks:
+  node-net:
+    driver: bridge
